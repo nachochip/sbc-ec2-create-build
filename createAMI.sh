@@ -3,14 +3,10 @@
 # This script is to be included in setting up an AMI on ec2
 # It will setup the environment.  Then you will need to manually save the AMI as the new version.
 
-# Environment Variables,  DISABLED FOR NOW
-#DOCKERVER="1.3.1"
-
-# Basic update/upgrade
 apt-get update && apt-get dist-upgrade -y
+apt-get install -y tmux iperf iptraf iotop htop
 
-# Install any version of following
-apt-get install -y git tmux iperf iptraf iotop htop
+# Consider adding in the script for making sure ec2 Enahanced Networking works.....postpone for now until everything is up and running.
 
 #################################
 # Install latest Docker via PPA
@@ -33,5 +29,12 @@ apt-get update
 apt-get install -y lxc-docker
 #################################
 
-# Setup and upstart or cron scripts, so they can automatically run on reboots
-#####currently working on this part
+# pull in the "stable" version of the Upstart or cron scripts, so they can automatically run on reboots
+
+RUN DIR=$(mktemp -d) && cd ${DIR} && \
+	wget https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
+	tar xzvf stable.tar.gz && \
+	cd *stable* && \
+#####NOW INSERT COMMANDS TO MOVE UPSTART COMMANDS TO PROPER LOCATION on ec2 instance
+	mv my*.conf /etc/init/
+	rm -rf ${DIR}
