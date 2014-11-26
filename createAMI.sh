@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# This script is to be included in setting up an AMI on ec2
-# It will setup the environment.  Then you will need to manually save the AMI as the new version.
+# This script is to be included in setting up an AMI on ec2.  You will need to manually save the AMI as the new version.
 
 #install pip and asw-cli
 apt-get update && apt-get dist-upgrade -y
@@ -30,11 +29,14 @@ apt-get update
 apt-get install -y lxc-docker
 #################################
 
-# pull in the "stable" version of the Upstart or cron scripts, so they can automatically run on reboots
-
-DIR=$(mktemp -d) && cd ${DIR} && \
+# pull in the "stable" version of the Upstart and shell scripts, so they can automatically run on reboots
+DIR=$(mktemp -d) && \
+	cd ${DIR} && \
 	wget https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
-	mv my*.conf /etc/init/
+	mv mySBCupstart.conf /etc/init/ && \
+	mv initializeSBC.sh /usr/local/bin/ && \
 	rm -rf ${DIR}
+# if you need to start the service, add this
+#service mySBCupstart.conf start
