@@ -9,7 +9,7 @@ DIR="/home/ubuntu"
 sudo docker rm $(sudo docker ps -aq)
 sudo docker pull nachochip/ffmpeg:stable
 cd ${DIR} && \
-	wget https://github.com/nachochip/sbc/archive/stable.tar.gz && \
+	wget -N https://github.com/nachochip/sbc/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
 	sudo docker build -t localbuild/sbc:latest . && \
@@ -19,7 +19,7 @@ sudo docker run localbuild/sbc:latest
                 # https://docs.docker.com/articles/host_integration/
 
 ##  Temp item to get test ready
-mkdir /www
-wget -P /www https://dl.dropboxusercontent.com/u/14528072/bjput-delete.mp4
-sudo docker run -v /www:/www localbuild/sbc:latest
+#mkdir /www
+#wget -P /www https://dl.dropboxusercontent.com/u/14528072/bjput-delete.mp4
+#sudo docker run -v /www:/www localbuild/sbc:latest
 
