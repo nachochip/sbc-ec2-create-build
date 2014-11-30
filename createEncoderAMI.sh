@@ -38,5 +38,4 @@ DIR=$(mktemp -d) && \
 	mv mySBCupstart.conf /etc/init/ && \
 	mv initializeSBC.sh /usr/local/bin/ && \
 	rm -rf ${DIR}
-
-#service mySBCupstart start
+service mySBCupstart start
