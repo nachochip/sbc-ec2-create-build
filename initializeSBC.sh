@@ -6,7 +6,7 @@
 # Environment variable
 DIR="/home/ubuntu"
 
-sudo docker rm $(sudo docker ps -aq)
+sudo docker rm -f $(sudo docker ps -aq)
 sudo docker pull nachochip/ffmpeg:stable
 cd ${DIR} && \
 	wget -N https://github.com/nachochip/sbc/archive/stable.tar.gz && \
