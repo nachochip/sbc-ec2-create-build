@@ -5,13 +5,18 @@
 
 # Environment variable
 DIR="/home/ubuntu"
-
-sudo docker rm -f $(sudo docker ps -aq)
-sudo docker pull nachochip/ffmpeg:stable
+#### ?? perhaps use a whoami to insert a sudo if I am manually calling this script....and if upstart needs
+#### no sudo, then I can remove here so upstart can trigger correctly on reboots
+# ?? do I need sudo when started by upstart vs manually starting it?? or is the issue with upstart??
+docker rm -f $(docker ps -aq)
+docker pull nachochip/ffmpeg:stable
 cd ${DIR} && \
 	wget -N https://github.com/nachochip/sbc/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
-	sudo docker build -t localbuild/sbc:latest . && \
-        sudo docker build -t localbuild/sbc:$(date +"%Y%m%d-%Hh%Mm") .
-sudo docker create --name="multiencoder" localbuild/sbc:latest
+	docker build -t localbuild/sbc:latest . && \
+#Disabled since I don't review builds right now
+#docker build -t localbuild/sbc:$(date +"%Y%m%d-%Hh%Mm") .
+
+# there is now a force option in docker 1.4.0 for names/tags
+docker create --name="multiencoder" localbuild/sbc:latest
