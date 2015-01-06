@@ -39,3 +39,11 @@ service mySBCupstart start
 
 #?install pip and aswcli if I want to write to s3 for log storage or piping video over for recording.
 # Consider adding in the script for making sure ec2 Enahanced Networking works.....postpone for now until everything is up and running.
+
+# I will have to make one more script to detect (via aws internal commands[see email link] & aws-cli] active region/instance-id from within
+# 	and add (vs attach ENI) a private ip address for ffmpeg to work internally and deliver to wowza correctly.
+# I will also need to create ffmpeg on campus (via aws cli, iam-user) to detect active region/instance-id/public-ip so it can deliver stream.
+# If a region is changed, the address needs to be added to cloudfront.....create a 2nd cloudfront for these times, program via aws-cli on campus
+# 	to command an addition/deployment of the wowza public ip to cloudfront (will deploy in 15 minutes).
+# In website, ?multiple cloudfront m3u8 will likely fallback as needed on links, but ?will flash-hls? downgrade to working link?
+# 	Consider using "playlist" in swf code.? (if not, will need to use aws-cli here too, to modify/deploy to current cloudfront?).
