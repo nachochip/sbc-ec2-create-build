@@ -3,7 +3,7 @@
 # This script is to be included in setting up an ENCODING server AMI on ec2.  You will need to manually save the AMI as the new version.
 
 apt-get update && apt-get dist-upgrade -y
-apt-get install -y tmux iperf iptraf iotop htop
+apt-get install -y tmux iperf iptraf iotop htop wget
 
 #################################
 # Install latest Docker via PPA
@@ -32,10 +32,10 @@ DIR=$(mktemp -d) && \
 	wget -N https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
-	mv mySBCupstart.conf /etc/init/ && \
-	mv initializeSBC.sh /usr/local/bin/ && \
+	mv upstartencoder.conf /etc/init/ && \
+	mv initializeencoder.sh /usr/local/bin/ && \
 	rm -rf ${DIR}
-service mySBCupstart start
+service upstartencoder start
 
 #?install pip and aswcli if I want to write to s3 for log storage or piping video over for recording.
 # Consider adding in the script for making sure ec2 Enahanced Networking works.....postpone for now until everything is up and running.
