@@ -21,7 +21,7 @@ DIR=$(mktemp -d) && \
         tar xzvf stable.tar.gz && \
         cd *stable* && \
         mv upstartstreaming.conf /etc/init/ && \
-        mv initializstreaming.sh /usr/local/bin/ && \
+        mv initializestreaming.sh /usr/local/bin/ && \
         rm -rf ${DIR}
 service upstartstreaming start
 
