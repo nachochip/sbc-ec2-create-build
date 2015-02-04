@@ -41,14 +41,17 @@ cd ${DIR} && \
 ### Load Averages, in linux, under 'top'/'htop' command, they are 1 min, 5 min, and 15 min load averages.  Consider the
 ###   number of cores you have, so 1 core @ load of 1.00 is fully used, and 4 core @ 2.00 is 50% used.
 
-
-aws ec2 run-instances --image-id ami-98fd4ef0 --count 1 --security-group-ids sg-72d0211a \
-	--key-name CFC --user-data live.zip --instance-type m1.large \
-	--region us-east-1 --placement AvailabilityZone=us-east-1a > output-run-instances-deletable.txt
-
-
 # connect ip address / virtual network interface  ---  place above command inside parenthesis with cut/sed stuff
-#### aws ec2 associate-address --instance-id $(INSERT ABOVE COMMAND IN HERE, ADD SED/CUT) --public-ip 23.21.227.80
+# create this as an interactive data value, which is needed for the command below
+export AWS_DEFAULT_REGION=us-east-1
+
+aws ec2 associate-address --instance-id \
+	$(export InstanceIDValue=$(aws ec2 run-instances --image-id ami-98fd4ef0 --count 1 --security-group-ids sg-72d0211a \
+		--key-name CFC --user-data live.zip --instance-type m1.large \
+		--region us-east-1 --placement AvailabilityZone=us-east-1a --output text | awk -F"\t" '$1=="INSTANCES" {print $8}n')\
+		; sleep 15; echo $InstanceIDValue) \
+        --public-ip 23.21.227.80
+
 #  HMMMM, IDEA = run above "run-instances" command, then pipe the output to the associate-address command
 # in case above doesn't work, you will need to break it out with this command, or use the old method of printing to files
 # aws ec2 describe-instances --filters "Name=product-code.type,Values=devpay"

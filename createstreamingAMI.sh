@@ -23,5 +23,8 @@ DIR=$(mktemp -d) && \
         mv upstartstreaming.conf /etc/init/ && \
         mv initializestreaming.sh /usr/local/bin/ && \
         rm -rf ${DIR}
-service upstartstreaming start
+#Try without this
+#service upstartstreaming start
 
+# technically, I should only be registering the new conf file once it is in the correct folder location
+initctl reload-configuration
