@@ -43,13 +43,16 @@ cd ${DIR} && \
 
 # connect ip address / virtual network interface  ---  place above command inside parenthesis with cut/sed stuff
 # create this as an interactive data value, which is needed for the command below
+
+# currently using m1.large, DEVPAY will not let me use m3 instance types....krazy
+# the opsworks default subnet is drawing from the us-east-1d zone
 export AWS_DEFAULT_REGION=us-east-1
 
 aws ec2 associate-address --instance-id \
-	$(export InstanceIDValue=$(aws ec2 run-instances --image-id ami-98fd4ef0 --count 1 --security-group-ids sg-72d0211a \
-		--key-name CFC --user-data fileb://live.zip --instance-type m1.large \
-		--region us-east-1 --placement AvailabilityZone=us-east-1a --output text | awk -F"\t" '$1=="INSTANCES" {print $8}n')\
-		; sleep 15; echo $InstanceIDValue) \
+        $(export InstanceIDValue=$(aws ec2 run-instances --image-id ami-98fd4ef0 --count 1 --security-group-ids sg-72d0211a \
+                --key-name CFC --user-data fileb://live.zip --instance-type m1.large \
+                --placement AvailabilityZone=us-east-1d --output text | awk -F"\t" '$1=="INSTANCES" {print $8}n')\
+                ; sleep 15; echo $InstanceIDValue) \
         --public-ip 23.21.227.80
 
 #  HMMMM, IDEA = run above "run-instances" command, then pipe the output to the associate-address command
