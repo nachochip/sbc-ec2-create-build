@@ -32,10 +32,14 @@ DIR=$(mktemp -d) && \
 	wget -N https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
-	mv upstartencoder.conf /etc/init/ && \
+	mv upstartinitializeencoder.conf /etc/init/ && \
 	mv initializeencoder.sh /usr/local/bin/ && \
 	rm -rf ${DIR}
-service upstartencoder start
+#Try without this
+#service upstartinitializeencoder start
+
+# technically, I should only be registering the new conf file once it is in the correct folder location
+initctl reload-configuration
 
 #?install pip and aswcli if I want to write to s3 for log storage or piping video over for recording.
 # Consider adding in the script for making sure ec2 Enahanced Networking works.....postpone for now until everything is up and running.

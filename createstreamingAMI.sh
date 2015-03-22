@@ -20,11 +20,16 @@ DIR=$(mktemp -d) && \
         wget -N https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
         tar xzvf stable.tar.gz && \
         cd *stable* && \
-        mv upstartstreaming.conf /etc/init/ && \
+        mv upstartinitializestreaming.conf /etc/init/ && \
         mv initializestreaming.sh /usr/local/bin/ && \
+        mv uninitializestreaming.sh /usr/local/bin/ && \
         rm -rf ${DIR}
 #Try without this
-#service upstartstreaming start
+#service upstartinitializestreaming start
+#service upstartuninitializestreaming start
 
 # technically, I should only be registering the new conf file once it is in the correct folder location
 initctl reload-configuration
+
+
+#        mv upstartuninitializestreaming.conf /etc/init/ && \
