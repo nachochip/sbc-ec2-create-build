@@ -8,7 +8,7 @@ DIR="/home/ubuntu"
 
 # pull in latest stable live.zip file
 cd ${DIR} && \
-        wget -N https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
+        wget -N https://www.github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
         tar xzvf stable.tar.gz && \
         cd *stable* && \
 

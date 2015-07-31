@@ -17,10 +17,11 @@ pip install --upgrade awscli
 # pull in the upstart script and configuration files
 DIR=$(mktemp -d) && \
         cd ${DIR} && \
-        wget -N https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
+        wget -N https://www.github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
         tar xzvf stable.tar.gz && \
         cd *stable* && \
         mv upstartinitializestreaming.conf /etc/init/ && \
+        mv upstartuninitializestreaming.conf /etc/init/ && \
         mv initializestreaming.sh /usr/local/bin/ && \
         mv uninitializestreaming.sh /usr/local/bin/ && \
         rm -rf ${DIR}
@@ -28,8 +29,6 @@ DIR=$(mktemp -d) && \
 #service upstartinitializestreaming start
 #service upstartuninitializestreaming start
 
-# technically, I should only be registering the new conf file once it is in the correct folder location
+# technically, I should only be registering the new conf file once it is in the correct folder location,
+# so use this command to reload all the scripts in the folder instead of above run service scripts
 initctl reload-configuration
-
-
-#        mv upstartuninitializestreaming.conf /etc/init/ && \

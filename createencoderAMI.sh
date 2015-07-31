@@ -29,7 +29,7 @@ apt-get install -y lxc-docker
 # pull in the "stable" version of the Upstart and shell scripts, so they can automatically run on reboots
 DIR=$(mktemp -d) && \
 	cd ${DIR} && \
-	wget -N https://github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
+	wget -N https://www.github.com/nachochip/sbc-ec2-create-build/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
 	mv upstartinitializeencoder.conf /etc/init/ && \

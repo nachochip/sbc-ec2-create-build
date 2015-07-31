@@ -11,7 +11,7 @@ DIR="/home/ubuntu"
 docker rm -f $(docker ps -aq)
 docker pull nachochip/ffmpeg:stable
 cd ${DIR} && \
-	wget -N https://github.com/nachochip/sbc/archive/stable.tar.gz && \
+	wget -N https://www.github.com/nachochip/sbc/archive/stable.tar.gz && \
 	tar xzvf stable.tar.gz && \
 	cd *stable* && \
 	docker build -t localbuild/sbc:latest . && \
