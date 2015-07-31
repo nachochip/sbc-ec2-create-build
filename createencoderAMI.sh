@@ -8,22 +8,10 @@ apt-get install -y tmux iperf iptraf iotop htop wget
 #################################
 # Install latest Docker via PPA
 # This part is from http://get.docker.com/ubuntu
+# Due to future updates, I have opted to wget their script
 
-# Check that HTTPS transport is available to APT
-if [ ! -e /usr/lib/apt/methods/https ]; then
-	apt-get update
-	apt-get install -y apt-transport-https
-fi
+wget -qO- https://get.docker.com/ | sh
 
-# Add the repository to your APT sources
-echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list
-
-# Then import the repository key
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-
-# Install docker
-apt-get update
-apt-get install -y lxc-docker
 #################################
 
 # pull in the "stable" version of the Upstart and shell scripts, so they can automatically run on reboots
@@ -40,6 +28,13 @@ DIR=$(mktemp -d) && \
 
 # technically, I should only be registering the new conf file once it is in the correct folder location
 initctl reload-configuration
+
+# Force a reboot, so all my configuration files kick in correctly
+reboot
+
+# I NEED TO MOUNT THE TEMP EPHEMERAL DRIVES AND MOUNT LOGS TO IT
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!1start here and use a small spot instance to learn the commands to put here, then push, and start a better instance.
+
 
 #?install pip and aswcli if I want to write to s3 for log storage or piping video over for recording.
 # Consider adding in the script for making sure ec2 Enahanced Networking works.....postpone for now until everything is up and running.
