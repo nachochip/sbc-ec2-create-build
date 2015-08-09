@@ -3,7 +3,7 @@
 # This script is to be included in setting up an ENCODING server AMI on ec2.  You will need to manually save the AMI as the new version.
 
 apt-get update && apt-get dist-upgrade -y
-apt-get install -y tmux iperf iptraf iotop htop wget
+apt-get install -y tmux iperf iptraf iotop htop ca-certificates wget
 
 #################################
 # Install latest Docker via PPA
@@ -23,8 +23,6 @@ DIR=$(mktemp -d) && \
 	mv upstartinitializeencoder.conf /etc/init/ && \
 	mv initializeencoder.sh /usr/local/bin/ && \
 	rm -rf ${DIR}
-#Try without this
-#service upstartinitializeencoder start
 
 # technically, I should only be registering the new conf file once it is in the correct folder location
 initctl reload-configuration
@@ -36,7 +34,7 @@ reboot
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!1start here and use a small spot instance to learn the commands to put here, then push, and start a better instance.
 
 
-#?install pip and aswcli if I want to write to s3 for log storage or piping video over for recording.
+#?Do you want to write to s3 for log storage or piping video over for recording.(add awscli and pip)
 # Consider adding in the script for making sure ec2 Enahanced Networking works.....postpone for now until everything is up and running.
 
 # I will have to make one more script to detect (via aws internal commands[see email link] & aws-cli] active region/instance-id from within

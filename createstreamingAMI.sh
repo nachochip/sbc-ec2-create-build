@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Special note: it looks like streaming software will not allow EBS instances, so I will use this as a platform to control the
-# implementation of the streaming server, and place this on a schedule.
+# Special note: the streaming software will not allow EBS instances, so this will control the streaming server.
 
 apt-get update && apt-get dist-upgrade -y
 apt-get install -y tmux iperf iptraf iotop htop ca-certificates wget
@@ -25,10 +24,9 @@ DIR=$(mktemp -d) && \
         mv initializestreaming.sh /usr/local/bin/ && \
         mv uninitializestreaming.sh /usr/local/bin/ && \
         rm -rf ${DIR}
-#Try without this
-#service upstartinitializestreaming start
-#service upstartuninitializestreaming start
 
 # technically, I should only be registering the new conf file once it is in the correct folder location,
-# so use this command to reload all the scripts in the folder instead of above run service scripts
 initctl reload-configuration
+
+# Force a reboot, so all my configuration files kick in correctly
+reboot
