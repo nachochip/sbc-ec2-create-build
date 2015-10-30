@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Special note: the streaming software will not allow EBS instances, so this will control the streaming server.
+# a simple 4GB volume is all that is needed
 
 apt-get update && apt-get dist-upgrade -y
 apt-get install -y tmux iperf iptraf iotop htop ca-certificates wget
