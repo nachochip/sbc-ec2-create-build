@@ -21,10 +21,10 @@ cd ${DIR} && \
 if [ ! -f ${DIR}/afile ] ;
 	then
 		cd *stable* && \
-		docker build -t localbuild/sbc:latest . && \
+		docker build -t localbuild/sbc:latest .
 	else
 		cd *stable*/yourstreamlive && \
-		docker build -t localbuild/sbc:latest . && \
+		docker build -t localbuild/sbc:latest .
 	fi
 
 #Disabled since I don't review builds right now

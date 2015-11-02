@@ -49,7 +49,7 @@ export AWS_DEFAULT_REGION=us-east-1
 
 aws ec2 associate-address --instance-id \
         $(export InstanceIDValue=$(aws ec2 run-instances --image-id ami-3667575e --count 1 --security-group-ids sg-72d0211a \
-                --key-name CFC --user-data fileb://live.zip --instance-type m1.large \
+                --key-name CFC --user-data fileb://live.zip --instance-type m1.medium \
                 --placement AvailabilityZone=us-east-1d --output text | awk -F"\t" '$1=="INSTANCES" {print $8}n')\
                 ; sleep 15; echo $InstanceIDValue) \
         --public-ip 23.21.227.80
